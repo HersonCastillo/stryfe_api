@@ -3,8 +3,10 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var api = require('./routes.js');
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-var port = 8080;
+var port = 80;
 
 app.use(bodyParser.json());  
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,4 +24,4 @@ app.get('/', (req, res, next) => {
 	res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-app.listen(port, () => console.log(port));
+http.listen(port, () => console.log(port));
