@@ -17,7 +17,7 @@ passport.use(new LocalStrategy({
             password: sha256(password)
         }
     }).then(user => {
-        if(!user) cb(null, false, { message: 'Usuario no válido.' });
+        if(!user) cb(null, false, { message: 'Usuario no válido' });
         return cb(null, user.dataValues, { message: 'Inicio de sesión correcto' });
     }).catch(err => {
         return cb(err);

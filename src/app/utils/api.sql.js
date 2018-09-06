@@ -22,7 +22,16 @@ const db = {
         Categoria: 'categoria',
         Producto: 'producto',
         Subcategoria: 'subcategoria',
-        Reporte: 'reporte'
+        Reporte: 'reporte',
+        Carrito: 'carrito',
+        DetalleClienteForma: 'detalle_cliente_forma',
+        DetalleClienteProducto: 'detalle_cliente_producto',
+        EstadoMensaje: 'estado_mensaje',
+        EstadoProd: 'estado_prod',
+        FormasDePago: 'formas_de_pago',
+        RubroProd: 'rubro_prod',
+        TipoReporte: 'tipo_reporte',
+        TipoUsuario: 'tipo_usuario'
     },
     logging: false
 }

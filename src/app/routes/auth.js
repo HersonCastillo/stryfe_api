@@ -7,7 +7,7 @@ router.post('/login', (req, res) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {
         if(err || !user){
             return res.status(200).json({
-                error: info ? info.error || info.message : 'Petición de inicio de sesión fallido',
+                error: info ? info.error || info.message : 'Credenciales incorrectas',
                 code: err || auth || "No se encontró al usuario"
             });
         }
