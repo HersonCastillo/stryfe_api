@@ -7,11 +7,14 @@ const Usuario = sequelize.define(tableName, {
     nombre: Sequelize.TEXT(100),
     apellido: Sequelize.TEXT(100),
     correo: { type: Sequelize.TEXT(150), unique: true },
-    fecha_nac: Sequelize.DATE,
-    dui: { type: Sequelize.TEXT(10), unique: true },
-    telefono: Sequelize.TEXT(9),
-    direccion: Sequelize.TEXT(150),
+    fecha_nac: { type: Sequelize.DATE, allowNull: true },
+    dui: { type: Sequelize.TEXT(10), unique: true, allowNull: true },
+    telefono: { type: Sequelize.TEXT(9), allowNull: true },
+    direccion: { type: Sequelize.TEXT(150), allowNull: true },
     password: Sequelize.TEXT(64),
+    img: { type: Sequelize.TEXT(150), allowNull: true },
+    verificado: Sequelize.TINYINT(1),
+    token: Sequelize.TEXT(64),
     id_tipo_usuario: Sequelize.INTEGER(1)
 });
 

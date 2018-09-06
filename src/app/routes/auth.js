@@ -3,11 +3,11 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var passport = require('passport');
 
-router.post('/login', (req, res, next) => {
+router.post('/login', (req, res) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {
         if(err || !user){
             return res.status(200).json({
-                error: info ? info.message : 'Petición de inicio de sesión fallido',
+                error: info ? info.error || info.message : 'Petición de inicio de sesión fallido',
                 code: err || auth || "No se encontró al usuario"
             });
         }

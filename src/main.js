@@ -6,7 +6,7 @@ var passport = require('passport');
 require('./app/utils/passport');
 
 var auth = require('./app/routes/auth');
-var api = require('./app/routes/usuario');
+var api = require('./app/routes/index');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);

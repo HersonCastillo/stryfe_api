@@ -23,7 +23,8 @@ const db = {
         Producto: 'producto',
         Subcategoria: 'subcategoria',
         Reporte: 'reporte'
-    }
+    },
+    logging: false
 }
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(db.database, db.username, db.password, {
@@ -31,7 +32,8 @@ var sequelize = new Sequelize(db.database, db.username, db.password, {
     dialect: db.dialect,
     pool: db.pool,
     operatorsAliases: db.operatorsAliases,
-    define: db.define
+    define: db.define,
+    logging: db.logging
 });
 
 module.exports = {
