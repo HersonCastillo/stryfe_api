@@ -2,7 +2,7 @@ var sequelize = require('../utils/api.sql').sequelizeInstance;
 var tableName = require('../utils/api.sql').db.tables.Usuario;
 var Sequelize = require('sequelize');
 
-const Usuario = sequelize.define(tableName, {
+const Table = sequelize.define(tableName, {
     id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
     nombre: Sequelize.TEXT(100),
     apellido: Sequelize.TEXT(100),
@@ -18,4 +18,4 @@ const Usuario = sequelize.define(tableName, {
     id_tipo_usuario: Sequelize.INTEGER(1)
 });
 
-module.exports = Usuario;
+module.exports = Table;
