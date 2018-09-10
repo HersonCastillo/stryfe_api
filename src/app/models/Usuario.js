@@ -13,7 +13,7 @@ const Table = sequelize.define(tableName, {
     direccion: { type: Sequelize.TEXT(150), allowNull: true },
     password: Sequelize.TEXT(64),
     img: { type: Sequelize.TEXT(150), allowNull: true },
-    verificado: Sequelize.TINYINT(1),
+    verificado: { type: Sequelize.TINYINT(1), defaultValue: 0 },
     token: Sequelize.TEXT(64),
     id_tipo_usuario: Sequelize.INTEGER(1)
 });

@@ -3,10 +3,11 @@ var router = express.Router();
 
 var UsuarioController = require('../controllers/UsuarioController');
 
-router.get('/example', (req, res, next) => {
-    res.json({
-        success: 'example ok!'
-    });
-});
+router.post('/', UsuarioController.insertar);
+router.get('/', UsuarioController.listar);
+router.put('/', UsuarioController.actualizar);
+router.delete('/', UsuarioController.eliminar);
+
+router.post('/listar', UsuarioController.listarPorId);
 
 module.exports = router;
