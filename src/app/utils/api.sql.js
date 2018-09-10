@@ -17,7 +17,6 @@ const db = {
     },
     tables: {
         Usuario: 'usuario',
-        Cliente: 'cliente',
         Mensaje: 'mensaje',
         Categoria: 'categoria',
         Producto: 'producto',
@@ -25,13 +24,19 @@ const db = {
         Reporte: 'reporte',
         Carrito: 'carrito',
         DetalleClienteForma: 'detalle_cliente_forma',
-        DetalleClienteProducto: 'detalle_cliente_producto',
+        DetalleProductoOrden: 'detalle_producto_orden',
         EstadoMensaje: 'estado_mensaje',
         EstadoProd: 'estado_prod',
         FormasDePago: 'formas_de_pago',
         RubroProd: 'rubro_prod',
         TipoReporte: 'tipo_reporte',
-        TipoUsuario: 'tipo_usuario'
+        TipoUsuario: 'tipo_usuario',
+        ColorProd: 'color_prod',
+        Descuento: 'descuento',
+        EstadoDesc: 'estado_desc',
+        EstadoOrden: 'estado_orden',
+        Orden: 'orden',
+        TallaProd: 'talla_prod'
     },
     logging: false
 }
