@@ -62,9 +62,16 @@ module.exports = {
     listarPorId: function(req, res){
         Usuario.findOne({
             where: {
-                id: req.body.id
+                id: req.params.id
             }
-        }).then(user => res.json(user.dataValues)).catch(() => res.json({
+        }).then(user => {
+            if(user) res.json({
+                success: user.dataValues
+            });
+            else res.json({
+                success: null
+            });
+        }).catch(() => res.json({
             error: "No se puede listar a este usuario"
         }));
     }
