@@ -1,9 +1,9 @@
 const db = {
-    host: '127.0.0.1',
+    host: 'localhost',
     dialect: 'mysql',
     database: 'stryfe',
     username: 'root',
-    password: 'control4',
+    password: '',
     pool: {
         max: 5,
         min: 0,

@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 app.use('/auth', auth);
 app.use('/api/v1', passport.authenticate('jwt', { session: false }), api);
 
-app.get('/', (req, res, next) => {
+app.get('*', (req, res, next) => {
 	res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
