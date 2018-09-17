@@ -9,7 +9,7 @@ var sha256 = require('sha256');
 router.post('/login', (req, res) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {
         if(err || !user){
-            return res.status(200).json({
+            return res.json({
                 error: info ? info.error || info.message : 'Credenciales incorrectas',
                 code: err || user || "No se encontró al usuario"
             });
@@ -17,7 +17,7 @@ router.post('/login', (req, res) => {
         req.login(user, { session: false }, (err) => {
             if(err) res.send({ error: err });
             const token = jwt.sign(user, 'abc123456');
-            return res.json({token});
+            return res.json({token, user});
         });
     })(req, res);
 });
