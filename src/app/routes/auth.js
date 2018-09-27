@@ -13,14 +13,15 @@ router.post('/login', (req, res) => {
                 error: info ? info.error || info.message : 'Credenciales incorrectas',
                 code: err || user || "No se encontró al usuario"
             });
+        } else {
+            req.login(user, { session: false }, (err) => {
+                if(err) res.json({ error: err });
+                else {
+                    const token = jwt.sign(user, 'abc123456');
+                    return res.json({ token, user });
+                }
+            });
         }
-        req.login(user, { session: false }, (err) => {
-            if(err) res.json({ error: err });
-            else {
-                const token = jwt.sign(user, 'abc123456');
-                return res.json({ token, user });
-            }
-        });
     })(req, res);
 });
 
