@@ -17,7 +17,7 @@ router.post('/login', (req, res) => {
             req.login(user, { session: false }, (err) => {
                 if(err) res.json({ error: err });
                 else {
-                    const token = jwt.sign(user, 'abc123456');
+                    const token = jwt.sign(user, '$2a$07$./U9C8sBjqp8I90dH6hi');
                     return res.json({ token, user });
                 }
             });

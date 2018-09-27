@@ -16,15 +16,14 @@ var port = 3500;
 app.use(bodyParser.json());  
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/auth', auth);
+app.use('/api/v1', passport.authenticate('jwt', { session: false }), api);
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:4200");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "POST,PUT,DELETE,OPTIONS,PURGE,GET");
     next();
 });
-
-app.use('/auth', auth);
-app.use('/api/v1', passport.authenticate('jwt', { session: false }), api);
 
 app.get('*', (req, res, next) => {
 	res.sendFile(path.join(__dirname, 'dist/index.html'));
