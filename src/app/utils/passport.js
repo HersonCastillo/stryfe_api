@@ -11,26 +11,20 @@ passport.use(new LocalStrategy({
     usernameField: 'correo',
     passwordField: 'password'
 }, function(correo, password, cb){
-    return Usuario.findOne({
+     Usuario.findOne({
         where: {
             correo: correo,
             password: sha256(password)
         }
     }).then(user => {
         if(!user) cb(null, false, { message: 'Usuario no válido' });
-        return cb(null, user.dataValues, { message: 'Inicio de sesión correcto' });
-    }).catch(err => {
-        return cb(err);
-    });
+        cb(null, user.dataValues, { message: 'Inicio de sesión correcto' });
+    }).catch(err => cb(err));
 }));
 
 passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey: 'abc123456'
 }, function(payload, cb){
-    return Usuario.findById(payload.id).then(user => {
-        return cb(null, user);
-    }).catch(err => {
-        return cb(err);
-    });
+     Usuario.findById(payload.id).then(user => cb(null, user)).catch(err => cb(err));
 }));

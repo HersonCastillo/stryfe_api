@@ -15,9 +15,11 @@ router.post('/login', (req, res) => {
             });
         }
         req.login(user, { session: false }, (err) => {
-            if(err) res.send({ error: err });
-            const token = jwt.sign(user, 'abc123456');
-            return res.json({token, user});
+            if(err) res.json({ error: err });
+            else {
+                const token = jwt.sign(user, 'abc123456');
+                return res.json({ token, user });
+            }
         });
     })(req, res);
 });
@@ -37,6 +39,7 @@ router.post('/registrar', (req, res) => {
                 nombre: req.body.nombre,
                 apellido: req.body.apellido,
                 correo: req.body.correo,
+                genero: req.body.genero,
                 password: sha256(req.body.password),
                 token: sha256(req.body.correo)
             }).then(() => res.json({

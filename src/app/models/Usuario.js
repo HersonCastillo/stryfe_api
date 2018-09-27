@@ -9,6 +9,7 @@ const Table = sequelize.define(tableName, {
     correo: { type: Sequelize.TEXT(150), unique: true },
     fecha_nac: { type: Sequelize.DATE, allowNull: true },
     dui: { type: Sequelize.TEXT(10), unique: true, allowNull: true },
+    genero: { type: Sequelize.TINYINT(1) },
     telefono: { type: Sequelize.TEXT(9), allowNull: true },
     direccion: { type: Sequelize.TEXT(150), allowNull: true },
     password: Sequelize.TEXT(64),
