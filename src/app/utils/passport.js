@@ -26,7 +26,11 @@ passport.use(new LocalStrategy({
 
 passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: '$2a$07$./U9C8sBjqp8I90dH6hi'
+    secretOrKey: '$2a$07$./U9C8sBjqp8I90dH6hi',
+    ignoreExpiration: false,
+    jsonWebTokenOptions: {
+        maxAge: 108e5
+    }
 }, function(payload, cb){
     return Usuario.findById(payload.id).then(user => {
         return cb(null, user);
