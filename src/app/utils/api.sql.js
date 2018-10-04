@@ -52,5 +52,6 @@ var sequelize = new Sequelize(db.database, db.username, db.password, {
 
 module.exports = {
     sequelizeInstance: sequelize,
-    db: db
+    db: db,
+    tokenKey: '$2a$07$./U9C8sBjqp8I90dH6hi'
 }

@@ -1,4 +1,5 @@
 const passport = require('passport');
+const tokenSecretKey = require('./api.sql').tokenKey;
 const LocalStrategy = require('passport-local').Strategy;
 const passportJWT = require("passport-jwt");
 const JWTStrategy   = passportJWT.Strategy
@@ -26,7 +27,7 @@ passport.use(new LocalStrategy({
 
 passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: '$2a$07$./U9C8sBjqp8I90dH6hi',
+    secretOrKey: tokenSecretKey,
     ignoreExpiration: false,
     jsonWebTokenOptions: {
         maxAge: 108e5

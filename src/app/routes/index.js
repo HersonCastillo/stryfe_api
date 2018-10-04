@@ -9,6 +9,7 @@ var orden = require('./web/orden');
 var mensaje = require('./web/mensaje');
 var descuento = require('./web/descuento');
 var carrito = require('./web/carrito');
+var subcategoria = require('./web/subcategoria');
 
 routes.use('/usuario', usuario);
 routes.use('/categoria', categoria);
@@ -18,5 +19,6 @@ routes.use('/mensaje', mensaje);
 routes.use('/orden', orden);
 routes.use('/reporte', reporte);
 routes.use('/producto', producto);
+routes.use('/subcategoria', subcategoria);
 
 module.exports = routes;

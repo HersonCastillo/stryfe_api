@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const tokenSecretKey = require('../utils/api.sql').tokenKey;
 var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var validations = require('../utils/validation');
@@ -8,16 +9,18 @@ var sha256 = require('sha256');
 
 router.post('/login', (req, res) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {
-        if(err || !user){
+        if (err || !user) {
             return res.json({
                 error: info ? info.error || info.message : 'Credenciales incorrectas',
                 code: err || user || "No se encontró al usuario"
             });
         } else {
             req.login(user, { session: false }, (err) => {
-                if(err) res.json({ error: err });
+                if (err) res.json({ error: err });
                 else {
-                    const token = jwt.sign(user, '$2a$07$./U9C8sBjqp8I90dH6hi');
+                    const token = jwt.sign(user, tokenSecretKey, {
+                        expiresIn: "3h"
+                    });
                     return res.json({ token, user });
                 }
             });
@@ -26,15 +29,15 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/validate', passport.authenticate('jwt', { session: false }), (req, res) => {
-    if(req.user) res.json(req.user);
+    if (req.user) res.json(req.user);
     else res.json({ error: 'Usuario no válido' });
 });
 
 router.post('/registrar', (req, res) => {
     let isOk = validations.allUserCommonDataExist(req.body);
-    if(isOk){
+    if (isOk) {
         let validate = validations.allUserCommonDataValidate(req.body);
-        if(validate){
+        if (validate) {
             Usuario.create({
                 id_tipo_usuario: 3,
                 nombre: req.body.nombre,
