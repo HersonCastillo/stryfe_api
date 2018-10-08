@@ -2,7 +2,7 @@
 
 Tecnologías utilizadas:
     + Express
-    + Socket.io
+    + Socket.io (ws -> WebSocket)
     + SHA256
     + Sequelize ORM
     + MYSQL2
