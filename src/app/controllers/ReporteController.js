@@ -16,7 +16,7 @@ module.exports = {
     eliminar: function(req, res){
         Reporte.findOne({
             where: {
-                id: req.body.id
+                id: req.params.id
             }
         }).then(rep => {
             return rep.destroy().then(() => res.json({

@@ -6,7 +6,7 @@ var DescuentoController = require('../../controllers/DescuentoController');
 router.post('/', DescuentoController.insertar);
 router.get('/', DescuentoController.listar);
 router.put('/', DescuentoController.actualizar);
-router.delete('/', DescuentoController.eliminar);
+router.delete('/:id', DescuentoController.eliminar);
 
 router.get('/:id', DescuentoController.listarPorId);
 

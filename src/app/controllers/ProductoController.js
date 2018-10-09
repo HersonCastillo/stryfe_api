@@ -23,7 +23,7 @@ module.exports = {
     eliminar: function(req, res){
         Producto.findOne({
             where: {
-                id: req.body.id
+                id: req.params.id
             }
         }).then(prod => {
             return prod.destroy().then(() => res.json({

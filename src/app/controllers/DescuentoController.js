@@ -17,7 +17,7 @@ module.exports = {
     eliminar: function(req, res){
         Descuento.findOne({
             where: {
-                id: req.body.id
+                id: req.params.id
             }
         }).then(dest => {
             return dest.destroy().then(() => res.json({

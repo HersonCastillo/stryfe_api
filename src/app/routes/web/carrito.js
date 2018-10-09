@@ -6,7 +6,7 @@ var CarritoController = require('../../controllers/CarritoController');
 router.post('/', CarritoController.insertar);
 router.get('/', CarritoController.listar);
 router.put('/', CarritoController.actualizar);
-router.delete('/', CarritoController.eliminar);
+router.delete('/:id', CarritoController.eliminar);
 
 router.get('/:id', CarritoController.listarPorId);
 

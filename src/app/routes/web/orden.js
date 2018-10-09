@@ -6,7 +6,7 @@ var OrdenController = require('../../controllers/OrdenController');
 router.post('/', OrdenController.insertar);
 router.get('/', OrdenController.listar);
 router.put('/', OrdenController.actualizar);
-router.delete('/', OrdenController.eliminar);
+router.delete('/:id', OrdenController.eliminar);
 
 router.get('/:id', OrdenController.listarPorId);
 

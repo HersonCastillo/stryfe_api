@@ -15,7 +15,7 @@ module.exports = {
     eliminar: function(req, res){
         Mensaje.findOne({
             where: {
-                id: req.body.id
+                id: req.params.id
             }
         }).then(msj => {
             return msj.destroy().then(() => res.json({

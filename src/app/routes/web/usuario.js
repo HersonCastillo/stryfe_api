@@ -6,7 +6,7 @@ var UsuarioController = require('../../controllers/UsuarioController');
 router.post('/', UsuarioController.insertar);
 router.get('/', UsuarioController.listar);
 router.put('/', UsuarioController.actualizar);
-router.delete('/', UsuarioController.eliminar);
+router.delete('/:id', UsuarioController.eliminar);
 
 router.get('/:id', UsuarioController.listarPorId);
 

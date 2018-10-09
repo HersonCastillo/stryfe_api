@@ -14,7 +14,7 @@ module.exports = {
     eliminar: function(req, res){
         Carrito.findOne({
             where: {
-                id: req.body.id
+                id: req.params.id
             }
         }).then(carr => {
             return carr.destroy().then(() => res.json({

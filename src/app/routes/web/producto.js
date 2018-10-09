@@ -6,7 +6,7 @@ var ProductoController = require('../../controllers/ProductoController');
 router.post('/', ProductoController.insertar);
 router.get('/', ProductoController.listar);
 router.put('/', ProductoController.actualizar);
-router.delete('/', ProductoController.eliminar);
+router.delete('/:id', ProductoController.eliminar);
 
 router.get('/:id', ProductoController.listarPorId);
 

@@ -14,7 +14,7 @@ module.exports = {
     eliminar: function(req, res){
         Subcategoria.findOne({
             where: {
-                id: req.body.id
+                id: req.params.id
             }
         }).then(cat => {
             return cat.destroy().then(() => res.json({

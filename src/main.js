@@ -1,17 +1,17 @@
-var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
-var token = require('./app/utils/api.sql').tokenKey;
-var jwt = require('express-jwt');
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const token = require('./app/utils/api.sql').tokenKey;
+const jwt = require('express-jwt');
 require('./app/utils/passport');
 
-var auth = require('./app/routes/auth');
-var api = require('./app/routes/index');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var mailer = require('express-mailer');
-var port = 3500;
+const auth = require('./app/routes/auth');
+const api = require('./app/routes/index');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const mailer = require('express-mailer');
+const port = 3500;
 
 mailer.extend(app, {
     from: 'no-reply@stryfe.com',

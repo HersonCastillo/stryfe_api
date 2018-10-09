@@ -26,7 +26,7 @@ module.exports = {
     eliminar: function(req, res){
         Usuario.findOne({
             where: {
-                id: req.body.id
+                id: req.params.id
             }
         }).then(user => {
             return user.destroy().then(() => res.json({

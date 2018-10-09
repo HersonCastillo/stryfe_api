@@ -17,7 +17,7 @@ module.exports = {
     eliminar: function(req, res){
         Orden.findOne({
             where: {
-                id: req.body.id
+                id: req.params.id
             }
         }).then(orn => {
             return orn.destroy().then(() => res.json({

@@ -6,7 +6,7 @@ var MensajeController = require('../../controllers/MensajeController');
 router.post('/', MensajeController.insertar);
 router.get('/', MensajeController.listar);
 router.put('/', MensajeController.actualizar);
-router.delete('/', MensajeController.eliminar);
+router.delete('/:id', MensajeController.eliminar);
 
 router.get('/:id', MensajeController.listarPorId);
 
