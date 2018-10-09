@@ -42,8 +42,8 @@ router.post('/registrar', (req, res) => {
                 id_tipo_usuario: 3,
                 nombre: req.body.nombre,
                 apellido: req.body.apellido,
+                genero: 0,
                 correo: req.body.correo,
-                genero: req.body.genero,
                 password: sha256(req.body.password),
                 token: sha256(req.body.correo)
             }).then(() => res.json({
