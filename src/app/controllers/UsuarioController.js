@@ -11,8 +11,9 @@ module.exports = {
             genero: req.body.genero,
             dui: req.body.dui,
             fecha_nac: req.body.fecha_nac,
-            id_tipo_usuario: 2,
-            telefono: req.body.telefono
+            id_tipo_usuario: req.body.id_tipo_usuario,
+            telefono: req.body.telefono,
+            password: sha256(req.body.password)
         }, {
             where: {
                 id: req.body.id
@@ -49,7 +50,8 @@ module.exports = {
             fecha_nac: req.body.fecha_nac,
             id_tipo_usuario: req.body.id_tipo_usuario,
             telefono: req.body.telefono,
-            password: sha256(req.body.password || "stryfe")
+            password: sha256(req.body.password || "stryfe"),
+            token: sha256(req.body.correo)
         }).then(() => res.json({
             success: "Usuario creado"
         })).catch(() => res.json({
