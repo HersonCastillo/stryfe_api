@@ -1,5 +1,6 @@
 (function () {
-    'use strict';
+    "use strict";
+
     const path = require('path');
     const jwt = require('express-jwt');
     const express = require('express');
@@ -28,27 +29,23 @@
     });
 
     app.use(multipart());
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(express.static(path.join(__dirname, 'dist')));
-    app.set('views', path.join(__dirname, 'app/views'));
-    app.set('view engine', 'jade');
     app.use('/auth', auth);
+    app.use(bodyParser.json());
+    app.set('view engine', 'jade');
     app.use('/api/v1', jwt({ secret: token }), api);
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.set('views', path.join(__dirname, 'app/views'));
+    app.use(express.static(path.join(__dirname, 'dist')));
+    
     app.use(function (err, req, res, next) {
-        if (err.name === 'UnauthorizedError') {
-            return res.status(403).send({
-                error: 'Llave de acceso no permitida.'
-            });
-        }
-    });
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'dist/index.html'));
+        if (err.name === 'UnauthorizedError') return res.status(403).send({
+            error: 'Llave de acceso no permitida.'
+        });
     });
 
-    io.on('connection', (socket) => {
-        //start real time with [socket]...
-    });
+    app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist/index.html')));
+
+    io.on('connection', (socket) => {});
 
     http.listen(port, () => console.log(`Contectado [:${port}]`));
 })();
