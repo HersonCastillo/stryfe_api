@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const token = require('./app/utils/api.sql').tokenKey;
 const jwt = require('express-jwt');
+const multipart = require('connect-multiparty');
 require('./app/utils/passport');
 
 const auth = require('./app/routes/auth');
@@ -25,6 +26,7 @@ mailer.extend(app, {
     }
 });
 
+app.use(multipart());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));

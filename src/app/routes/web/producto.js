@@ -10,4 +10,6 @@ router.delete('/:id', ProductoController.eliminar);
 
 router.get('/:id', ProductoController.listarPorId);
 
+router.post('/image', ProductoController.guardarImagen);
+
 module.exports = router;
