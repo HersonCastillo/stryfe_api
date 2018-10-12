@@ -13,7 +13,7 @@ const db = {
     operatorsAliases: false,
     define: {
         freezeTableName: true,
-        timestamps: false
+        timestamps: true
     },
     tables: {
         Usuario: 'usuario',

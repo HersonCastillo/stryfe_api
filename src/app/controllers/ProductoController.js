@@ -83,7 +83,7 @@ module.exports = {
     },
     guardarImagen: function (req, res) {
         try {
-            let gLink = "../../../disk/";
+            let gLink = "../../../disk/images/";
             let path = req.files.image.path;
             let type = req.files.image.type;
             let size = req.files.image.size;
