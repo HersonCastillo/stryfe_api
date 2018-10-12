@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const tokenSecretKey = require('../utils/api.sql').tokenKey;
-var jwt = require('jsonwebtoken');
-var passport = require('passport');
-var validations = require('../utils/validation');
-var Usuario = require('../models/Usuario');
-var sha256 = require('sha256');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const validations = require('../utils/validation');
+const Usuario = require('../models/Usuario');
+const sha256 = require('sha256');
 
 router.post('/login', (req, res) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {

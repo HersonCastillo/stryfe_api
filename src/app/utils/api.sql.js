@@ -40,7 +40,7 @@ const db = {
     },
     logging: false
 }
-var Sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 var sequelize = new Sequelize(db.database, db.username, db.password, {
     host: db.host,
     dialect: db.dialect,
