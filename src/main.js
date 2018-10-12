@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const jwt = require('express-jwt');
 const express = require('express');
@@ -42,6 +43,7 @@ app.use(function (err, req, res, next) {
     });
 });
 
+app.get('/image/:image', (req, res) => res.sendFile(path.join(__dirname, `../disk/images/${req.params.image}`)));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist/index.html')));
 
 io.on('connection', (socket) => { });

@@ -1,12 +1,18 @@
-var Descuento = require('../models/Descuento');
+const Descuento = require('../models/Descuento');
+const Estados = require('../models/EstadoDesc');
 
 module.exports = {
+    listarEstados: function(req, res){
+        Estados.findAll({raw: true}).then(es => res.json(es)).catch(() => res.json({
+            error: 'No se puede listar los estados'
+        }));
+    },
     insertar: function(req, res){
         Descuento.create({
             id_estado: req.body.id_estado,
             id_prod: req.body.id_prod,
-            fecha_in: req.body.fecha_in,
-            fecha_fin: req.body.fecha_fin,
+            fech_in: req.body.fech_in,
+            fech_fin: req.body.fech_fin,
             monto: req.body.monto
         }).then(() => res.json({
             success: 'Descuento agregado'
@@ -33,8 +39,8 @@ module.exports = {
         Descuento.update({
             id_estado: req.body.id_estado,
             id_prod: req.body.id_prod,
-            fecha_in: req.body.fecha_in,
-            fecha_fin: req.body.fecha_fin,
+            fech_in: req.body.fech_in,
+            fech_fin: req.body.fech_fin,
             monto: req.body.monto
         }, {
             where: {
@@ -47,7 +53,7 @@ module.exports = {
         }));
     },
     listar: function(req, res){
-        Descuento.findAll({raw: true}).then(des => res.json(des)).catch(() => res.json({
+        Descuento.findAll({raw: true}).then(des => res.json(des)).catch((err) => res.json({
             error: 'No se puede listar los descuentos'
         }));
     },

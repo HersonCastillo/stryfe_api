@@ -4,6 +4,7 @@ var Sequelize = require('sequelize');
 
 const Table = sequelize.define(tableName, {
     id: { type: Sequelize.TEXT(50), primaryKey: true },
+    nombre: Sequelize.TEXT(150),
     descripcion: Sequelize.TEXT(150),
     img: Sequelize.TEXT(150),
     precio: Sequelize.DECIMAL(10, 2),

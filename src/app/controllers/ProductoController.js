@@ -4,8 +4,19 @@ var p = require('path');
 
 module.exports = {
     insertar: function (req, res) {
+        var randomString = function (len, bits) {
+            bits = bits || 36;
+            var outStr = "", newStr;
+            while (outStr.length < len) {
+                newStr = Math.random().toString(bits).slice(2);
+                outStr += newStr.slice(0, Math.min(newStr.length, (len - outStr.length)));
+            }
+            return outStr.toUpperCase();
+        }
         Producto.create({
+            id: randomString(50, 16),
             cantidad: req.body.cantidad,
+            nombre: req.body.nombre,
             descripcion: req.body.descripcion,
             id_color: req.body.id_color,
             id_estado_prod: req.body.id_estado_prod,
@@ -28,11 +39,21 @@ module.exports = {
                 id: req.params.id
             }
         }).then(prod => {
-            return prod.destroy().then(() => res.json({
-                success: "Producto eliminado con éxito"
-            })).catch(() => res.json({
-                error: "No se puede eliminar este producto"
-            }));
+            let img = prod.dataValues.img;
+            let url = "../../../disk/images/";
+            let path = p.join(__dirname, url, img);
+            fs.unlink(path, err => {
+                if (err) res.json({
+                    error: "La imagen está corrupta y no se puede eliminar en este momento."
+                });
+                else {
+                    return prod.destroy().then(() => res.json({
+                        success: "Producto eliminado con éxito"
+                    })).catch(() => res.json({
+                        error: "No se puede eliminar este producto"
+                    }));
+                }
+            });
         }).catch(() => res.json({
             error: 'No se econtró el producto'
         }));
@@ -40,6 +61,7 @@ module.exports = {
     actualizar: function (req, res) {
         Producto.update({
             cantidad: req.body.cantidad,
+            nombre: req.body.nombre,
             descripcion: req.body.descripcion,
             id_color: req.body.id_color,
             id_estado_prod: req.body.id_estado_prod,
@@ -54,9 +76,23 @@ module.exports = {
                 where: {
                     id: req.body.id
                 }
-            }).then(() => res.json({
-                success: 'El producto se actualizó'
-            })).catch(() => res.json({
+            }).then(() => {
+                if (req.body.img_aux) {
+                    let img = req.body.img_aux;
+                    let url = "../../../disk/images/";
+                    let path = p.join(__dirname, url, img);
+                    fs.unlink(path, err => {
+                        if (err) res.json({
+                            error: "No se puede sustituir la imagen"
+                        });
+                        else res.json({
+                            success: 'El producto se actualizó'
+                        });
+                    });
+                } else res.json({
+                    success: 'El producto se actualizó'
+                });
+            }).catch(() => res.json({
                 error: 'No se puede actualizar el producto'
             }));
     },
@@ -87,8 +123,8 @@ module.exports = {
             let path = req.files.image.path;
             let type = req.files.image.type;
             let size = req.files.image.size;
-            if(type === "image/png" || type == "image/jpg" || type == "image/jpeg"){
-                if(size <= 2e7){
+            if (type === "image/png" || type == "image/jpg" || type == "image/jpeg") {
+                if (size <= 2e7) {
                     let name = `${Math.round(Math.random() * 1e20).toString()}${p.extname(path)}`;
                     let newPath = p.join(__dirname, gLink, name);
                     let is = fs.createReadStream(path);
@@ -108,7 +144,7 @@ module.exports = {
                 error: "El archivo no se ha subido. [FAIL:Type]",
                 code: "El tipo del archivo no es correcto"
             });
-        }catch(ex){
+        } catch (ex) {
             res.json({
                 error: "El archivo no se ha subido. [FAIL:fs-error]",
                 code: ex
