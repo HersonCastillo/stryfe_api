@@ -4,9 +4,7 @@
     "description": "API",
     "main": "./src/main.js",
     "scripts": {
-        "test": "node ./src/main",
-        "build": "node-gyp rebuild",
-        "clean": "node-gyp clean"
+        "test": "node ./src/main"
     },
     "keywords": [
         "API"
