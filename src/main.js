@@ -8,7 +8,8 @@ const token = require('./app/utils/api.sql').tokenKey;
 require('./app/utils/passport');
 const app = express();
 const auth = require('./app/routes/auth');
-const api = require('./app/routes/index');
+const api = require('./app/routes/api.index');
+const public = require('./app/routes/public.index');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const mailer = require('express-mailer');
@@ -36,6 +37,7 @@ app.set('views', path.join(__dirname, 'app/views'));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/auth', auth);
 app.use('/api/v1', jwt({ secret: token }), api);
+app.use('/public', public);
 
 app.use(function (err, req, res, next) {
     if (err.name === 'UnauthorizedError') return res.status(403).send({
@@ -43,8 +45,12 @@ app.use(function (err, req, res, next) {
     });
 });
 
-app.get('/image/:image', (req, res) => res.sendFile(path.join(__dirname, `../disk/images/${req.params.image}`)));
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist/index.html')));
+app.get('/image/:image', (req, res) => {
+    res.sendFile(path.join(__dirname, `../disk/images/${req.params.image}`));
+});
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
 
 io.on('connection', (socket) => { });
 
