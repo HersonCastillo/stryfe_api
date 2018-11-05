@@ -97,7 +97,9 @@ module.exports = {
             }));
     },
     listar: function (req, res) {
-        Producto.findAll({ raw: true }).then(prod => res.json(prod)).catch(() => res.json({
+        Producto.findAll({
+            raw: true
+        }).then(prod => res.json(prod)).catch(() => res.json({
             error: 'No se puede listar los productos'
         }));
     },
