@@ -1,10 +1,10 @@
-var Reporte = require('../models/Reporte');
-
+const Reporte = require('../models/Reporte');
+const TipoReporte = require('../models/TipoReporte');
 module.exports = {
     insertar: function(req, res){
         Reporte.create({
             descripcion: req.body.descripcion,
-            id_cliente: req.body.id_cliente,
+            id_cliente: req.user.id,
             id_producto: req.body.id_producto,
             id_tipo_reporte: req.body.id_tipo_reporte
         }).then(() => res.json({
@@ -63,6 +63,11 @@ module.exports = {
             });
         }).catch(() => res.json({
             error: 'No se puede listar a este reporte'
+        }));
+    },
+    obtenerTipoReportes: function(req, res){
+        TipoReporte.findAll({raw: true}).then(rep => res.json(rep)).catch(() => res.json({
+            error: 'No se puede listar los reportes'
         }));
     }
 }

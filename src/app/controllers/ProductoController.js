@@ -1,6 +1,7 @@
-var Producto = require('../models/Producto');
-var fs = require('fs');
-var p = require('path');
+const Producto = require('../models/Producto');
+const Sequelize = require('sequelize');
+const fs = require('fs');
+const p = require('path');
 
 module.exports = {
     insertar: function (req, res) {
@@ -109,12 +110,8 @@ module.exports = {
                 id: req.params.id
             }
         }).then(prod => {
-            if (prod) res.json({
-                success: prod.dataValues
-            });
-            else res.json({
-                success: null
-            });
+            if (prod) res.json(prod.dataValues);
+            else res.json({});
         }).catch(() => res.json({
             error: 'No se puede listar a este producto'
         }));
@@ -152,5 +149,13 @@ module.exports = {
                 code: ex
             });
         }
+    },
+    random: function(req, res){
+        Producto.findAll({ order: 'random()', limit: 4 }).then(r => {
+            res.json(r);
+        }).catch(e => res.json({
+            error: "No se pueden obtener los productos",
+            code: e
+        }));
     }
 }

@@ -10,4 +10,6 @@ router.delete('/:id', ReporteController.eliminar);
 
 router.get('/:id', ReporteController.listarPorId);
 
+router.get('/tipos', ReporteController.obtenerTipoReportes);
+
 module.exports = router;
