@@ -13,6 +13,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const mailer = require('express-mailer');
 const cron = require('node-cron');
+const sha256 = require('sha256');
 const PythonShell = require('python-shell').PythonShell;
 const port = 3500;
 
@@ -47,10 +48,44 @@ app.use(function (err, req, res, next) {
 app.get('/image/:image', (req, res) => {
     res.sendFile(path.join(__dirname, `../disk/images/${req.params.image}`));
 });
+app.post('/validar', (req, res) => {
+    app.mailer.send('email/accountcreate', {
+        to: req.body.correo,
+        subject: "Recuperación de contraseña",
+        url: `http://localhost:3500/public/validate/${sha256(req.body.correo)}`
+    }, (err) => {
+        if(err) res.json({
+            error: "No se pudo enviar el correo de validación.",
+            code: err
+        });
+        else res.send({
+            success: "Se envió un correo de validación. Verifica tu correo electrónico"
+        });
+    });
+});
+app.post('/recuperar', (req, res, next) => {
+    app.mailer.send('email/getaccount', {
+        to: req.body.correo,
+        subject: "Recuperación de contraseña",
+        url: `http://localhost:4200/recuperar/${sha256(req.body.correo)}`
+    }, (err) => {
+        if(err) res.json({
+            error: "No se pudo enviar el correo de recuperación",
+            code: err
+        });
+        else res.send({
+            success: "Se envió un correo de recuperación. Verifica tu correo electrónico"
+        });
+    });
+});
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-io.on('connection', (socket) => { });
+io.on('connection', (socket) => {
+    io.on('mensaje', (data) => {
+        socket.send('mensaje', data);
+    });
+});
 
 http.listen(port, () => console.log(`Contectado [:${port}]`));

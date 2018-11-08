@@ -35,7 +35,12 @@ module.exports = {
         }));
     },
     listar: function(req, res){
-        DetalleForma.findAll({raw: true}).then(v => res.json(v)).catch(() => res.json({
+        DetalleForma.find({
+            raw: true,
+            where: {
+                id_cliente: req.user.id
+            }
+        }).then(v => res.json(v)).catch(() => res.json({
             error: 'No se puede listar los detalles'
         }));
     }

@@ -12,6 +12,7 @@ const mensaje = require('./web/mensaje');
 const descuento = require('./web/descuento');
 const carrito = require('./web/carrito');
 const subcategoria = require('./web/subcategoria');
+const metodospago = require('./web/metodospago');
 
 routes.use('/orden', orden);
 routes.use('/color', color);
@@ -23,6 +24,7 @@ routes.use('/usuario', usuario);
 routes.use('/producto', producto);
 routes.use('/descuento', descuento);
 routes.use('/categoria', categoria);
+routes.use('/metodos', metodospago);
 routes.use('/subcategoria', subcategoria);
 
 module.exports = routes;

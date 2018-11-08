@@ -18,10 +18,15 @@ router.post('/login', (req, res) => {
             req.login(user, { session: false }, (err) => {
                 if (err) res.json({ error: err });
                 else {
-                    const token = jwt.sign(user, tokenSecretKey, {
-                        expiresIn: "3h"
+                    if (user.verificado == 0) return res.json({
+                        error: "El usuario no ha verificado su cuenta."
                     });
-                    return res.json({ token, user });
+                    else {
+                        const token = jwt.sign(user, tokenSecretKey, {
+                            expiresIn: "3h"
+                        });
+                        return res.json({ token, user });
+                    }
                 }
             });
         }
