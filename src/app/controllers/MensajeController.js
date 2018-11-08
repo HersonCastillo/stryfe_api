@@ -4,11 +4,14 @@ module.exports = {
     insertar: function(req, res){
         Mensaje.create({
             id_estado_mensaje: req.body.id_estado_mensaje,
-            id_usuario: req.body.id_usuario,
+            id_usuario: req.user.id,
             mensaje: req.body.mensaje
-        }).then(() => res.json({
-            success: 'Mensaje guardado'
-        })).catch(() => res.json({
+        }).then(m => {
+            res.json({
+                success: 'Mensaje guardado',
+                mensaje: m.dataValues
+            });
+        }).catch(() => res.json({
             error: 'No se puede guardar este mensaje'
         }));
     },
@@ -29,9 +32,7 @@ module.exports = {
     },
     actualizar: function(req, res){
         Mensaje.update({
-            id_estado_mensaje: req.body.id_estado_mensaje,
-            id_usuario: req.body.id_usuario,
-            mensaje: req.body.mensaje
+            id_estado_mensaje: req.body.id_estado_mensaje
         }, {
             where: {
                 id: req.body.id
@@ -43,6 +44,16 @@ module.exports = {
         }));
     },
     listar: function(req, res){
+        Mensaje.findAll({
+            raw: true,
+            where: {
+                id_usuario: req.user.id
+            }
+        }).then(msj => res.json(msj)).catch(() => res.json({
+            error: 'No se puede listar los mensajes'
+        }));
+    },
+    listarTodo: function(req, res){
         Mensaje.findAll({raw: true}).then(msj => res.json(msj)).catch(() => res.json({
             error: 'No se puede listar los mensajes'
         }));

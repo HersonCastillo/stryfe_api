@@ -10,11 +10,11 @@ const auth = require('./app/routes/auth');
 const api = require('./app/routes/api.index');
 const public = require('./app/routes/public.index');
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
 const mailer = require('express-mailer');
 const cron = require('node-cron');
 const sha256 = require('sha256');
-const PythonShell = require('python-shell').PythonShell;
+const cors = require('cors');
+const io = require('socket.io')(http, { origins: '*:*' });
 const port = 3500;
 
 mailer.extend(app, {
@@ -29,6 +29,14 @@ mailer.extend(app, {
     }
 });
 
+app.use(cors({ origin: '*' }));
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', false);
+    next();
+});
 app.use(multipart());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -51,10 +59,10 @@ app.get('/image/:image', (req, res) => {
 app.post('/validar', (req, res) => {
     app.mailer.send('email/accountcreate', {
         to: req.body.correo,
-        subject: "Recuperación de contraseña",
+        subject: "Confirmación de cuenta",
         url: `http://localhost:3500/public/validate/${sha256(req.body.correo)}`
     }, (err) => {
-        if(err) res.json({
+        if (err) res.json({
             error: "No se pudo enviar el correo de validación.",
             code: err
         });
@@ -63,13 +71,13 @@ app.post('/validar', (req, res) => {
         });
     });
 });
-app.post('/recuperar', (req, res, next) => {
+app.post('/recuperar', (req, res) => {
     app.mailer.send('email/getaccount', {
         to: req.body.correo,
         subject: "Recuperación de contraseña",
         url: `http://localhost:4200/recuperar/${sha256(req.body.correo)}`
     }, (err) => {
-        if(err) res.json({
+        if (err) res.json({
             error: "No se pudo enviar el correo de recuperación",
             code: err
         });
@@ -83,8 +91,8 @@ app.get('*', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    io.on('mensaje', (data) => {
-        socket.send('mensaje', data);
+    socket.on('mensaje', (data) => {
+        io.emit('mensaje', data);
     });
 });
 

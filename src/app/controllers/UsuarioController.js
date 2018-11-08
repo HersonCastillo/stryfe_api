@@ -78,6 +78,7 @@ module.exports = {
         }));
     },
     insertar: function(req, res){
+        let verificado = (req.body.verificado) ? req.body.verificado : 0;
         Usuario.create({
             nombre: req.body.nombre,
             apellido: req.body.apellido,
@@ -89,7 +90,8 @@ module.exports = {
             id_tipo_usuario: req.body.id_tipo_usuario,
             telefono: req.body.telefono,
             password: sha256(req.body.password || "stryfe"),
-            token: sha256(req.body.correo)
+            token: sha256(req.body.correo),
+            verificado: verificado
         }).then(() => res.json({
             success: "Usuario creado"
         })).catch(() => res.json({
