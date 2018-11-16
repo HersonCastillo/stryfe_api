@@ -8,7 +8,7 @@ const Table = sequelize.define(tableName, {
     direccion_aux: { type: Sequelize.TEXT(150), allowNull: true },
     token_verif: Sequelize.TEXT(150),
     id_estado: Sequelize.INTEGER,
-    id_cliente: Sequelize.INTEGER
+    id_detalle_forma: Sequelize.INTEGER
 });
 
 module.exports = Table;

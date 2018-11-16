@@ -1,13 +1,13 @@
-var Orden = require('../models/Orden');
+const Orden = require('../models/Orden');
 
 module.exports = {
     insertar: function(req, res){
         Orden.create({
-            id_cliente: req.body.id_cliente,
             id_estado: req.body.id_estado,
             monto_total: req.body.monto_total,
             token_verif: req.body.token_verif,
-            direccion_aux: req.body.direccion_aux
+            direccion_aux: req.body.direccion_aux,
+            id_detalle_forma: req.body.id_detalle_forma
         }).then(() => res.json({
             success: 'Orden guardada'
         })).catch(() => res.json({
@@ -31,7 +31,7 @@ module.exports = {
     },
     actualizar: function(req, res){
         Orden.update({
-            id_cliente: req.body.id_cliente,
+            id_detalle_forma: req.body.id_detalle_forma,
             id_estado: req.body.id_estado,
             monto_total: req.body.monto_total,
             token_verif: req.body.token_verif,
@@ -47,7 +47,9 @@ module.exports = {
         }));
     },
     listar: function(req, res){
-        Orden.findAll({raw: true}).then(orn => res.json(orn)).catch(() => res.json({
+        Orden.findAll({
+            raw: true
+        }).then(orn => res.json(orn)).catch(() => res.json({
             error: 'No se puede listar las ordenes'
         }));
     },

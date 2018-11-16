@@ -8,6 +8,7 @@ router.get('/', CarritoController.listar);
 router.put('/', CarritoController.actualizar);
 router.delete('/:id', CarritoController.eliminar);
 
+router.delete('/limpiar/all', CarritoController.limpiarMiCarrito);
 router.get('/:id', CarritoController.listarPorId);
 
 module.exports = router;

@@ -65,5 +65,27 @@ module.exports = {
         }).catch(() => res.json({
             error: 'No se puede listar a este carrito'
         }));
-    }
+    },
+    limpiarMiCarrito: function(req, res){
+        Carrito.findAll({
+            where: {
+                id_cliente: req.user.id
+            }
+        }).then(v => {
+            let count = 0;
+            let f = v.length;
+            v.forEach(x => {
+                x.destroy().then(() => {
+                    count++;
+                    if(count == f) res.json({
+                        success: "Carrito limpiado con éxito"
+                    });
+                }).catch(() => res.json({
+                    error: `No se puede limpiar el carrito [${count}]`
+                }));
+            });
+        }).catch(() => res.json({
+            error: 'No se econtraron los carritos'
+        }));
+    } 
 }
