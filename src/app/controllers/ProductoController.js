@@ -45,7 +45,8 @@ module.exports = {
             let path = p.join(__dirname, url, img);
             fs.unlink(path, err => {
                 if (err) res.json({
-                    error: "La imagen está corrupta y no se puede eliminar en este momento."
+                    error: "La imagen está corrupta y no se puede eliminar en este momento.",
+                    code: err
                 });
                 else {
                     return prod.destroy().then(() => res.json({
@@ -149,13 +150,5 @@ module.exports = {
                 code: ex
             });
         }
-    },
-    random: function(req, res){
-        Producto.findAll({ order: 'random()', limit: 4 }).then(r => {
-            res.json(r);
-        }).catch(e => res.json({
-            error: "No se pueden obtener los productos",
-            code: e
-        }));
     }
 }

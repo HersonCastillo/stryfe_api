@@ -9,6 +9,7 @@ const Table = sequelize.define(tableName, {
     img: Sequelize.TEXT(150),
     precio: Sequelize.DECIMAL(10, 2),
     cantidad: Sequelize.INTEGER,
+    genero_prodc: { type: Sequelize.TINYINT(1), defaultValue: 0 },
     id_talla: Sequelize.INTEGER,
     id_color: Sequelize.INTEGER,
     id_subcategoria_prod: Sequelize.INTEGER,
