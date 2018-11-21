@@ -7,6 +7,7 @@ const DescuentoController = require('../controllers/DescuentoController');
 
 routes.get('/producto', ProductoController.listar);
 routes.get('/producto/:id', ProductoController.listarPorId);
+routes.get('/producto/like/:producto', ProductoController.search);
 
 routes.get('/descuento', DescuentoController.listar);
 

@@ -77,7 +77,7 @@ CREATE TABLE `color_prod` (
 
 CREATE TABLE `descuento` (
   `id` int(11) NOT NULL,
-  `monto` decimal(10,0) NOT NULL,
+  `monto` decimal(10,2) NOT NULL,
   `fech_in` date NOT NULL,
   `fech_fin` date NOT NULL,
   `id_prod` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,

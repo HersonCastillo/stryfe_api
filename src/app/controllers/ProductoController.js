@@ -1,5 +1,6 @@
 const Producto = require('../models/Producto');
 const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 const fs = require('fs');
 const p = require('path');
 
@@ -101,8 +102,9 @@ module.exports = {
     listar: function (req, res) {
         Producto.findAll({
             raw: true
-        }).then(prod => res.json(prod)).catch(() => res.json({
-            error: 'No se puede listar los productos'
+        }).then(prod => res.json(prod)).catch(err => res.json({
+            error: 'No se puede listar los productos',
+            code: err
         }));
     },
     listarPorId: function (req, res) {
@@ -150,5 +152,23 @@ module.exports = {
                 code: ex
             });
         }
+    },
+
+    search: function(req, res){
+        let producto = req.params.producto;
+        Producto.findAll({
+            raw: true,
+            where:{
+                nombre: {
+                    [Op.like]: `%${producto}%`
+                }
+            }
+        }).then(prod => res.json(prod)).catch(err => {
+            console.log(err)
+            res.json({
+                error: 'No se puede listar los productos',
+                code: err
+            })
+        });
     }
 }

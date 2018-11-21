@@ -3,7 +3,7 @@ const db = {
     dialect: 'mysql',
     database: 'stryfe',
     username: 'root',
-    password: '',
+    password: 'root',
     pool: {
         max: 5,
         min: 0,
