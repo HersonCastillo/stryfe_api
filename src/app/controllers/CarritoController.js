@@ -6,9 +6,9 @@ module.exports = {
             id_cliente: req.user.id,
             id_producto: req.body.id_producto
         }).then(() => res.json({
-            success: 'Carrito agregado'
+            success: 'Producto agregado'
         })).catch(() => res.json({
-            error: 'No se puede crear el carrito'
+            error: 'No se puede agregar el producto al carrito'
         }));
     },
     eliminar: function(req, res){
@@ -18,12 +18,12 @@ module.exports = {
             }
         }).then(carr => {
             return carr.destroy().then(() => res.json({
-                success: "Carrito eliminada con éxito"
+                success: "Producto eliminado del carrito"
             })).catch(() => res.json({
-                error: "No se puede eliminar el carrito"
+                error: "No se puede eliminar el producto del carrito"
             }));
         }).catch(() => res.json({
-            error: 'No se econtró el carrito'
+            error: 'No se encontro el producto en el carrito'
         }));
     },
     actualizar: function(req, res){
@@ -35,9 +35,9 @@ module.exports = {
                 id: req.body.id
             }
         }).then(() => res.json({
-            success: 'El carrito se actualizó'
+            success: 'Cantidad del producto actualizada'
         })).catch(() => res.json({
-            error: 'No se puede actualizar el carrito'
+            error: 'No se pudo actualizar la cantidad'
         }));
     },
     listar: function(req, res){
@@ -47,7 +47,7 @@ module.exports = {
                 id_cliente: req.user.id
             }
         }).then(carr => res.json(carr)).catch(() => res.json({
-            error: 'No se puede listar los carritos'
+            error: 'No se pudo obtener los productos en el carrito'
         }));
     },
     listarPorId: function(req, res){
@@ -63,7 +63,7 @@ module.exports = {
                 success: null
             });
         }).catch(() => res.json({
-            error: 'No se puede listar a este carrito'
+            error: 'Error obteniendo un producto guardado en el carrito'
         }));
     },
     limpiarMiCarrito: function(req, res){
@@ -85,7 +85,7 @@ module.exports = {
                 }));
             });
         }).catch(() => res.json({
-            error: 'No se econtraron los carritos'
+            error: 'Error obteniendo la lista de prroductos en el carrito'
         }));
     } 
 }
