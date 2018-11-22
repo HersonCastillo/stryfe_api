@@ -5,9 +5,9 @@ module.exports = {
         Color.create({
             descripcion: req.body.descripcion
         }).then(() => res.json({
-            success: 'Color agregado'
+            success: 'Color ingresado'
         })).catch(() => res.json({
-            error: 'No se puede crear el color'
+            error: 'Error ingresando el color'
         }));
     },
     eliminar: function(req, res){
@@ -17,12 +17,12 @@ module.exports = {
             }
         }).then(carr => {
             return carr.destroy().then(() => res.json({
-                success: "Color eliminado con éxito"
+                success: "Color eliminado"
             })).catch(() => res.json({
-                error: "No se puede eliminar el color"
+                error: "Error eliminando el color"
             }));
         }).catch(() => res.json({
-            error: 'No se econtró el color'
+            error: 'Error encontrando el color'
         }));
     },
     actualizar: function(req, res){
@@ -33,14 +33,14 @@ module.exports = {
                 id: req.body.id
             }
         }).then(() => res.json({
-            success: 'El color se actualizó'
+            success: 'Color actualizado'
         })).catch(() => res.json({
-            error: 'No se puede actualizar el color'
+            error: 'Error actualizando el color'
         }));
     },
     listar: function(req, res){
         Color.findAll({raw: true}).then(carr => res.json(carr)).catch(() => res.json({
-            error: 'No se puede listar los colores'
+            error: 'Error obteniendo la lista de colores'
         }));
     },
     listarPorId: function(req, res){
@@ -56,7 +56,7 @@ module.exports = {
                 success: null
             });
         }).catch(() => res.json({
-            error: 'No se puede listar a este color'
+            error: 'Error obteniendo el color'
         }));
     }
 }
