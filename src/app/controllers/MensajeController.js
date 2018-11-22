@@ -12,7 +12,7 @@ module.exports = {
                 mensaje: m.dataValues
             });
         }).catch(() => res.json({
-            error: 'No se puede guardar este mensaje'
+            error: 'Error guardando mensaje'
         }));
     },
     eliminar: function(req, res){
@@ -22,12 +22,12 @@ module.exports = {
             }
         }).then(msj => {
             return msj.destroy().then(() => res.json({
-                success: "Mensaje eliminado con éxito"
+                success: "Mensaje eliminado"
             })).catch(() => res.json({
-                error: "No se puede eliminar el mensaje"
+                error: "Error eliminando mensaje"
             }));
         }).catch(() => res.json({
-            error: 'No se econtró el mensaje'
+            error: 'Error obteniendo mensaje'
         }));
     },
     actualizar: function(req, res){
@@ -38,9 +38,9 @@ module.exports = {
                 id: req.body.id
             }
         }).then(() => res.json({
-            success: 'El mensaje se actualizó'
+            success: 'Mensaje actualizado'
         })).catch(() => res.json({
-            error: 'No se puede actualizar el mensaje'
+            error: 'Error actualizando mensaje'
         }));
     },
     listar: function(req, res){

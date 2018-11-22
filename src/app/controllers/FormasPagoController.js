@@ -4,7 +4,7 @@ const DetalleForma = require('../models/DetalleClienteForma');
 module.exports = {
     listarFormas: function(req, res){
         FormasPago.findAll({raw: true}).then(v => res.json(v)).catch(() => res.json({
-            error: 'No se puede listar las formas'
+            error: 'Error listando los tipos de pago disponibles'
         }));
     },
     insertar: function(req, res){
@@ -14,9 +14,9 @@ module.exports = {
             id_forma: req.body.id_forma,
             numero: req.body.numero
         }).then(() => res.json({
-            success: 'Forma guardada'
+            success: 'Forma de pago ingresada'
         })).catch(() => res.json({
-            error: 'No se puede guardar esta forma'
+            error: 'Error ingresanfo la forma de pago'
         }));
     },
     actualizar: function(req, res){
@@ -29,9 +29,9 @@ module.exports = {
                 id: req.body.id
             }
         }).then(() => res.json({
-            success: 'El detalle se actualizó'
+            success: 'Forma de pago actualizada'
         })).catch(() => res.json({
-            error: 'No se puede actualizar el detalle'
+            error: 'Error actualizando la forma de pago'
         }));
     },
     listar: function(req, res){
@@ -41,7 +41,7 @@ module.exports = {
                 id_cliente: req.user.id
             }
         }).then(v => res.json(v)).catch(() => res.json({
-            error: 'No se puede listar los detalles'
+            error: 'Error listando las formas de pago'
         }));
     }
 }
