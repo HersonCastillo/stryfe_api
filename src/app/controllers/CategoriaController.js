@@ -5,9 +5,9 @@ module.exports = {
         Categoria.create({
             descripcion: req.body.descripcion
         }).then(() => res.json({
-            success: 'Categoria guardada'
+            success: 'Categoria ingresada'
         })).catch(() => res.json({
-            error: 'No se puede guardar esta categoría'
+            error: 'Error guardando la categoria'
         }));
     },
     eliminar: function(req, res){
@@ -17,12 +17,12 @@ module.exports = {
             }
         }).then(cat => {
             return cat.destroy().then(() => res.json({
-                success: "Categoria eliminada con éxito"
+                success: "Categoria eliminada"
             })).catch(() => res.json({
-                error: "No se puede eliminar la categoria"
+                error: "Error eliminando la categoria"
             }));
         }).catch(() => res.json({
-            error: 'No se econtró la categoría'
+            error: 'Error obteniendo la categoria'
         }));
     },
     actualizar: function(req, res){
@@ -33,14 +33,14 @@ module.exports = {
                 id: req.body.id
             }
         }).then(() => res.json({
-            success: 'La categoria se actualizó'
+            success: 'Categoria actualizada'
         })).catch(() => res.json({
-            error: 'No se puede actualizar la categoria'
+            error: 'Error actualizando categoria'
         }));
     },
     listar: function(req, res){
         Categoria.findAll({raw: true}).then(cats => res.json(cats)).catch(() => res.json({
-            error: 'No se puede listar las categorías'
+            error: 'Error listando las categorias'
         }));
     },
     listarPorId: function(req, res){
@@ -56,7 +56,7 @@ module.exports = {
                 success: null
             });
         }).catch(() => res.json({
-            error: 'No se puede listar a esta categoria'
+            error: 'Error obteniendo una categoria'
         }));
     }
 }
