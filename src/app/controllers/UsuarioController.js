@@ -93,14 +93,14 @@ module.exports = {
             token: sha256(req.body.correo),
             verificado: verificado
         }).then(() => res.json({
-            success: "Usuario creado"
+            success: "Usuario ingresado"
         })).catch(() => res.json({
-            error: 'Error al crear el usuario'
+            error: 'Error ingresando el usuario'
         }));
     },
     listar: function(req, res){
         Usuario.findAll({ raw: true }).then(users => res.json(users)).catch(() => res.json({
-            error: 'No se pueden listar los usuarios'
+            error: 'Error listando los usuarios'
         }));
     },
     listarPorId: function(req, res){
@@ -112,7 +112,7 @@ module.exports = {
             if(user) res.json(user.dataValues);
             else res.json(null);
         }).catch(() => res.json({
-            error: "No se puede listar a este usuario"
+            error: "Error obteniendo el usuario"
         }));
     }
 }

@@ -6,6 +6,7 @@ const p = require('path');
 
 module.exports = {
     insertar: function (req, res) {
+        //generador del codigo
         var randomString = function (len, bits) {
             bits = bits || 36;
             var outStr = "", newStr;
@@ -30,9 +31,9 @@ module.exports = {
             stock_existente: req.body.stock_existente,
             stock_minimo: req.body.stock_minimo
         }).then(() => res.json({
-            success: 'Producto guardado'
+            success: 'Producto ingresado'
         })).catch(() => res.json({
-            error: 'No se puede guardar este producto'
+            error: 'Error ingresando el producto'
         }));
     },
     eliminar: function (req, res) {
@@ -51,14 +52,14 @@ module.exports = {
                 });
                 else {
                     return prod.destroy().then(() => res.json({
-                        success: "Producto eliminado con éxito"
+                        success: "Producto eliminado"
                     })).catch(() => res.json({
-                        error: "No se puede eliminar este producto"
+                        error: "Error eliminando el producto"
                     }));
                 }
             });
         }).catch(() => res.json({
-            error: 'No se econtró el producto'
+            error: 'Error obteniendo el producto'
         }));
     },
     actualizar: function (req, res) {
@@ -89,21 +90,21 @@ module.exports = {
                             error: "No se puede sustituir la imagen"
                         });
                         else res.json({
-                            success: 'El producto se actualizó'
+                            success: 'Producto actualizado; pero ocurrio un error sustituyendo la imagen'
                         });
                     });
                 } else res.json({
-                    success: 'El producto se actualizó'
+                    success: 'Producto actualizado'
                 });
             }).catch(() => res.json({
-                error: 'No se puede actualizar el producto'
+                error: 'Error actualizando producto'
             }));
     },
     listar: function (req, res) {
         Producto.findAll({
             raw: true
         }).then(prod => res.json(prod)).catch(err => res.json({
-            error: 'No se puede listar los productos',
+            error: 'Error listando los productos',
             code: err
         }));
     },
@@ -116,7 +117,7 @@ module.exports = {
             if (prod) res.json(prod.dataValues);
             else res.json({});
         }).catch(() => res.json({
-            error: 'No se puede listar a este producto'
+            error: 'Error obteniendo el producto'
         }));
     },
     guardarImagen: function (req, res) {
@@ -134,17 +135,17 @@ module.exports = {
                     is.pipe(os);
                     is.on('end', () => fs.unlinkSync(path));
                     res.json({
-                        success: "Imagen subida con éxito.",
+                        success: "Imagen subida.",
                         code: 200,
                         imageName: name
                     });
                 } else res.json({
                     error: "El archivo no se ha subido. [FAIL:Size]",
-                    code: "El archivo pesa más de 20MB, el peso debe ser menor"
+                    code: "El archivo demasido, el máximo a subir es de 20MB"
                 });
             } else res.json({
                 error: "El archivo no se ha subido. [FAIL:Type]",
-                code: "El tipo del archivo no es correcto"
+                code: "El tipo del archivo no es correcto, solo se permite .png, .jpg y .jpeg"
             });
         } catch (ex) {
             res.json({
@@ -166,7 +167,7 @@ module.exports = {
         }).then(prod => res.json(prod)).catch(err => {
             console.log(err)
             res.json({
-                error: 'No se puede listar los productos',
+                error: 'Error buscando los productos',
                 code: err
             })
         });

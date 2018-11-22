@@ -50,12 +50,12 @@ module.exports = {
                 id_usuario: req.user.id
             }
         }).then(msj => res.json(msj)).catch(() => res.json({
-            error: 'No se puede listar los mensajes'
+            error: 'Error listando los mensajes del cliente'
         }));
     },
     listarTodo: function(req, res){
         Mensaje.findAll({raw: true}).then(msj => res.json(msj)).catch(() => res.json({
-            error: 'No se puede listar los mensajes'
+            error: 'Error listando los mensajes del empleado'
         }));
     },
     listarPorId: function(req, res){
@@ -71,7 +71,7 @@ module.exports = {
                 success: null
             });
         }).catch(() => res.json({
-            error: 'No se puede listar a este mensaje'
+            error: 'Error obteniendo el mensaje'
         }));
     }
 }

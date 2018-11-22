@@ -9,9 +9,9 @@ module.exports = {
             direccion_aux: req.body.direccion_aux,
             id_detalle_forma: req.body.id_detalle_forma
         }).then(() => res.json({
-            success: 'Orden guardada'
+            success: 'Orden ingresada'
         })).catch(() => res.json({
-            error: 'No se puede guardar esta orden'
+            error: 'Error ingresando la orden'
         }));
     },
     eliminar: function(req, res){
@@ -21,12 +21,12 @@ module.exports = {
             }
         }).then(orn => {
             return orn.destroy().then(() => res.json({
-                success: "Orden eliminada con éxito"
+                success: "Orden eliminada"
             })).catch(() => res.json({
-                error: "No se puede eliminar la orden"
+                error: "Error eliminando la orden"
             }));
         }).catch(() => res.json({
-            error: 'No se econtró la orden'
+            error: 'Error obteniendo la orden'
         }));
     },
     actualizar: function(req, res){
@@ -41,16 +41,16 @@ module.exports = {
                 id: req.body.id
             }
         }).then(() => res.json({
-            success: 'La orden se actualizó'
+            success: 'Orden actualizada'
         })).catch(() => res.json({
-            error: 'No se puede actualizar la orden'
+            error: 'Error actualizando orden'
         }));
     },
     listar: function(req, res){
         Orden.findAll({
             raw: true
         }).then(orn => res.json(orn)).catch(() => res.json({
-            error: 'No se puede listar las ordenes'
+            error: 'Error listando el historico de ordenes'
         }));
     },
     listarPorId: function(req, res){
@@ -66,7 +66,7 @@ module.exports = {
                 success: null
             });
         }).catch(() => res.json({
-            error: 'No se puede listar a esta orden'
+            error: 'Error obteniendo la orden'
         }));
     }
 }

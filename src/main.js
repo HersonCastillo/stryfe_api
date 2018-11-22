@@ -63,7 +63,7 @@ app.post('/validar', (req, res) => {
         url: `http://localhost:3500/public/validate/${sha256(req.body.correo)}`
     }, (err) => {
         if (err) res.json({
-            error: "No se pudo enviar el correo de validación.",
+            error: "Error enviando el correo de validación.",
             code: err
         });
         else res.send({
@@ -78,7 +78,7 @@ app.post('/recuperar', (req, res) => {
         url: `http://localhost:4200/recuperar/${sha256(req.body.correo)}`
     }, (err) => {
         if (err) res.json({
-            error: "No se pudo enviar el correo de recuperación",
+            error: "Error enviando el correo de recuperación de contraseña",
             code: err
         });
         else res.send({

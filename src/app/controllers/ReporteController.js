@@ -8,9 +8,9 @@ module.exports = {
             id_producto: req.body.id_producto,
             id_tipo_reporte: req.body.id_tipo_reporte
         }).then(() => res.json({
-            success: 'Reporte guardado'
+            success: 'Reporte ingresado'
         })).catch(() => res.json({
-            error: 'No se puede guardar este reporte'
+            error: 'Error guardando reporte'
         }));
     },
     eliminar: function(req, res){
@@ -20,9 +20,9 @@ module.exports = {
             }
         }).then(rep => {
             return rep.destroy().then(() => res.json({
-                success: "Reporte eliminado con éxito"
+                success: "Reporte eliminado"
             })).catch(() => res.json({
-                error: "No se puede eliminar el reporte"
+                error: "Error eliminando reporte"
             }));
         }).catch(() => res.json({
             error: 'No se econtró el reporte'
