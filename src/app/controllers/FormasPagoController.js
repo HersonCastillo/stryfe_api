@@ -9,14 +9,15 @@ module.exports = {
     },
     insertar: function(req, res){
         DetalleForma.create({
-            correo: req.body.correo,
+            correo: req.user.correo,
             id_cliente: req.user.id,
             id_forma: req.body.id_forma,
             numero: req.body.numero
         }).then(() => res.json({
             success: 'Forma guardada'
-        })).catch(() => res.json({
-            error: 'No se puede guardar esta forma'
+        })).catch(err => res.json({
+            error: 'No se puede guardar esta forma',
+            code: err
         }));
     },
     actualizar: function(req, res){

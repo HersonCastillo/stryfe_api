@@ -157,18 +157,18 @@ module.exports = {
     search: function(req, res){
         let producto = req.params.producto;
         Producto.findAll({
-            raw: true,
-            where:{
-                nombre: {
-                    [Op.like]: `%${producto}%`
-                }
-            }
+            where: Sequelize.where(Sequelize.fn('UPPER', Sequelize.col('nombre')), {
+                [Op.like]: `%${producto.toUpperCase()}%`
+            }),
+            order: [
+                ['nombre', 'ASC'],
+                ['createdAt', 'DESC']
+            ]
         }).then(prod => res.json(prod)).catch(err => {
-            console.log(err)
             res.json({
                 error: 'No se puede listar los productos',
                 code: err
-            })
+            });
         });
     }
 }

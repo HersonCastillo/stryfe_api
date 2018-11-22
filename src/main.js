@@ -86,6 +86,39 @@ app.post('/recuperar', (req, res) => {
         });
     });
 });
+app.post('/nostock', (req, res) => {
+    app.mailer.send('email/nostock', {
+        to: req.body.correo,
+        subject: "Aviso de stock terminado",
+        id: req.body.id,
+        minimo: req.body.minimo,
+        nombre: req.body.nombre
+    }, (err) => {
+        if (err) res.json({
+            error: "No se pudo enviar el correo de aviso de stock",
+            code: err
+        });
+        else res.send({
+            success: 200    
+        });
+    });
+});
+app.post('/factura', (req, res) => {
+    app.mailer.send('email/factura', {
+        to: req.body.correo,
+        subject: "Facturación de compra",
+        ref: req.body.ref,
+        monto: req.body.monto
+    }, (err) => {
+        if (err) res.json({
+            error: "No se pudo enviar el correo factura",
+            code: err
+        });
+        else res.send({
+            success: 200    
+        });
+    });
+});
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
 });

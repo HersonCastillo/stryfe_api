@@ -498,8 +498,6 @@ ALTER TABLE `descuento`
 --
 ALTER TABLE `detalle_cliente_forma`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `numero` (`numero`),
-  ADD UNIQUE KEY `correo` (`correo`),
   ADD KEY `id_forma` (`id_forma`),
   ADD KEY `id_cliente` (`id_cliente`);
 
