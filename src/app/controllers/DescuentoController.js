@@ -4,7 +4,7 @@ const Estados = require('../models/EstadoDesc');
 module.exports = {
     listarEstados: function(req, res){
         Estados.findAll({raw: true}).then(es => res.json(es)).catch(() => res.json({
-            error: 'No se puede listar los estados'
+            error: 'Error obteniendo los tipos de descuento'
         }));
     },
     insertar: function(req, res){
@@ -15,9 +15,9 @@ module.exports = {
             fech_fin: req.body.fech_fin,
             monto: req.body.monto
         }).then(() => res.json({
-            success: 'Descuento agregado'
+            success: 'Descuento ingresado'
         })).catch(() => res.json({
-            error: 'No se puede crear el descuento'
+            error: 'Error ingresando descuento'
         }));
     },
     eliminar: function(req, res){
@@ -27,12 +27,12 @@ module.exports = {
             }
         }).then(dest => {
             return dest.destroy().then(() => res.json({
-                success: "Descuento eliminado con éxito"
+                success: "Descuento eliminado"
             })).catch(() => res.json({
-                error: "No se puede eliminar el descuento"
+                error: "Error eliminando el descuento"
             }));
         }).catch(() => res.json({
-            error: 'No se econtró el descuento'
+            error: 'Error obteniendo el descuento'
         }));
     },
     actualizar: function(req, res){
@@ -47,14 +47,14 @@ module.exports = {
                 id: req.body.id
             }
         }).then(() => res.json({
-            success: 'El descuento se actualizó'
+            success: 'Descuento actualizado'
         })).catch(() => res.json({
-            error: 'No se puede descuento el carrito'
+            error: 'Error actualizando el descuento'
         }));
     },
     listar: function(req, res){
         Descuento.findAll({raw: true}).then(des => res.json(des)).catch((err) => res.json({
-            error: 'No se puede listar los descuentos'
+            error: 'Error listando los descuentos'
         }));
     },
     listarPorId: function(req, res){
@@ -70,7 +70,7 @@ module.exports = {
                 success: null
             });
         }).catch(() => res.json({
-            error: 'No se puede listar a este descuento'
+            error: 'Error obteniendo el descuento'
         }));
     }
 }
